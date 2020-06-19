@@ -1,0 +1,16 @@
+stages:
+- name: Build
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: myze-bob:v1
+- name: Deploy
+  steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:helm3-library-mariadb
+      version: 7.3.14
+      name: myapp
+      targetNamespace: mariadb
+timeout: 60
+notification: {}
